@@ -31,6 +31,7 @@ module Craigslist
       # timeout is generous.
       DEFAULT_TIMEOUT = 120
 
+      # Connection establishment timeout, in seconds.
       DEFAULT_OPEN_TIMEOUT = 15
 
       attr_reader :email, :password, :account_id, :scopes, :bulk_host, :bapi_host,

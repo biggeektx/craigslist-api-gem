@@ -12,6 +12,7 @@ module Craigslist
       # PUT uploads a new image, POST reorders the existing ones. The method
       # names here describe the effect rather than the verb.
       class Images < Base
+        # Assumed when the caller does not say otherwise.
         DEFAULT_CONTENT_TYPE = "image/jpeg"
 
         # @param posting_id [String, Integer]

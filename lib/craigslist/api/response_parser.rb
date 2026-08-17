@@ -10,6 +10,7 @@ module Craigslist
     # rather than XPath namespace resolution, which REXML handles awkwardly when
     # a default namespace is in play.
     class ResponseParser
+      # Prefix craigslist puts on the channel description in post mode.
       UPLOAD_ID_PREFIX = "upload-id:"
 
       class << self

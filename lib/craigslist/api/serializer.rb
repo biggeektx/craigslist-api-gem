@@ -12,8 +12,13 @@ module Craigslist
     # memory problem this class can be reimplemented as a streaming writer
     # without changing anything public.
     class Serializer
+      # Default namespace for the RSS 1.0 elements.
       RSS_NAMESPACE = "http://purl.org/rss/1.0/"
+
+      # RDF namespace, used for the item manifest.
       RDF_NAMESPACE = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+
+      # Craigslist's own namespace, carrying every cl:* element.
       CL_NAMESPACE = "http://www.craigslist.org/about/cl-bulk-ns/1.0"
 
       # @param config [Configuration] supplies the +cl:auth+ credentials

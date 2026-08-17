@@ -12,7 +12,10 @@ module Craigslist
     # Both payloads are static enough to fetch once and hold — areas is around
     # 165KB — so results are memoized per client behind a mutex.
     class Reference
+      # Public endpoint listing every area and its subareas.
       AREAS_PATH = "/Areas"
+
+      # Public endpoint listing every posting category.
       CATEGORIES_PATH = "/Categories"
 
       def initialize(connection)

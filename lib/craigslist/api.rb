@@ -39,6 +39,7 @@ require "craigslist/api/resources/account"
 require "craigslist/api/posting_handle"
 require "craigslist/api/client"
 
+# Top-level namespace. This gem defines everything under {Craigslist::API}.
 module Craigslist
   # Ruby client for the Craigslist bulk posting platform.
   #

@@ -12,6 +12,7 @@ module Craigslist
     # endpoint or read a half-replaced token. Deliberately an instance, not a
     # class-level cache: one process may talk to several accounts.
     class TokenProvider
+      # OAuth2 token endpoint.
       TOKEN_PATH = "/bulkpost/oauth/access-token"
 
       # @param config [Configuration]

@@ -54,6 +54,8 @@ module Craigslist
         "#{format("%.#{exponent}f", to_r)} #{currency}"
       end
 
+      # @param other [Object]
+      # @return [Boolean] true when amount, currency and exponent all match
       def ==(other)
         other.is_a?(Money) &&
           amount == other.amount &&
@@ -62,6 +64,7 @@ module Craigslist
       end
       alias_method :eql?, :==
 
+      # @return [Integer] value-based hash, so Money can key a Hash
       def hash
         [amount, currency, exponent].hash
       end

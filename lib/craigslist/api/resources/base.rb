@@ -2,6 +2,7 @@
 
 module Craigslist
   module API
+    # Endpoint groups for the JSON Bulkpost API, reached through {Client}.
     module Resources
       # Shared plumbing for the JSON API resource groups.
       class Base

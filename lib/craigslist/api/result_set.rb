@@ -24,6 +24,8 @@ module Craigslist
         freeze
       end
 
+      # @yieldparam result [Result]
+      # @return [Enumerator, ResultSet]
       def each(&block)
         results.each(&block)
       end
@@ -65,6 +67,7 @@ module Craigslist
         select(&:posted?).map(&:posting_id).compact
       end
 
+      # @return [Integer] number of results in the batch
       def size
         results.size
       end

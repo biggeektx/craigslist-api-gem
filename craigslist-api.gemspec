@@ -29,10 +29,12 @@ Gem::Specification.new do |spec|
     "rubygems_mfa_required" => "true"
   }
 
+  # An allowlist rather than a denylist, so a new development file can never
+  # ship by accident. A published version cannot be replaced.
   spec.files = Dir.chdir(__dir__) do
-    `git ls-files -z`.split("\x0").reject do |f|
-      f == File.basename(__FILE__) ||
-        f.start_with?("spec/", ".git", ".standard", "Rakefile", "Gemfile", ".rspec")
+    `git ls-files -z`.split("\x0").select do |file|
+      file.start_with?("lib/") ||
+        ["README.md", "CHANGELOG.md", "LICENSE.txt"].include?(file)
     end
   end
   spec.require_paths = ["lib"]

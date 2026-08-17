@@ -12,7 +12,10 @@ module Craigslist
       # form encoding; text/xml is the one the protocol itself specifies.
       CONTENT_TYPE = "text/xml; charset=utf-8"
 
+      # Dry-run endpoint. Takes the same document as {POST_PATH}.
       VALIDATE_PATH = "/bulk-rss/validate"
+
+      # Endpoint that actually creates postings.
       POST_PATH = "/bulk-rss/post"
 
       def initialize(config:, connection:)
