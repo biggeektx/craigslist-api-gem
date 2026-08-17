@@ -85,10 +85,16 @@ module Craigslist
       end
 
       def handle(response)
-        envelope = safe_envelope(response)
+        envelope = parse_envelope(response)
         @account_messages = envelope&.account_messages || []
 
         raise_for_status(response, envelope) unless response.success?
+
+        # Only reachable on a 2xx, so an unparseable body here is a genuine
+        # surprise rather than an error page.
+        if envelope.nil?
+          raise ParseError, "expected JSON from the Bulkpost API, got #{response.body.to_s[0, 200].inspect}"
+        end
 
         # HTTP 200 with a populated errors array is a real failure mode here.
         if envelope.error?
@@ -103,25 +109,27 @@ module Craigslist
         envelope
       end
 
-      def safe_envelope(response)
-        return nil if response.body.nil? || response.body.to_s.strip.empty?
+      # Returns nil only when a non-empty body could not be parsed. An empty
+      # body is treated as an empty envelope, since some writes reply with no
+      # payload at all.
+      def parse_envelope(response)
+        body = response.body.to_s
+        return Envelope.new if body.strip.empty?
 
-        Envelope.parse(response.body)
+        Envelope.parse(body)
       rescue ParseError
-        # Error responses are not guaranteed to be JSON; let raise_for_status
-        # report the status with the raw body instead.
         nil
       end
 
       def raise_for_status(response, envelope)
-        message = envelope&.error?  ? envelope.error_message : "HTTP #{response.status}"
-        attrs = {
+        message = envelope&.error? ? envelope.error_message : "HTTP #{response.status}"
+
+        raise error_class(response.status).new(
+          message,
           status: response.status,
           body: response.body,
           api_errors: envelope&.errors || []
-        }
-
-        raise error_class(response.status).new(message, **attrs)
+        )
       end
 
       def error_class(status)

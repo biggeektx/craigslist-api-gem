@@ -21,10 +21,11 @@ Gem::Specification.new do |spec|
 
   spec.metadata = {
     "homepage_uri" => spec.homepage,
-    "source_code_uri" => spec.homepage,
+    # Pinned to the released tag so the link matches the gem you installed.
+    "source_code_uri" => "#{spec.homepage}/tree/v#{spec.version}",
     "changelog_uri" => "#{spec.homepage}/blob/main/CHANGELOG.md",
     "bug_tracker_uri" => "#{spec.homepage}/issues",
-    "documentation_uri" => "https://rubydoc.info/gems/craigslist-api",
+    "documentation_uri" => "https://rubydoc.info/gems/craigslist-api/#{spec.version}",
     "rubygems_mfa_required" => "true"
   }
 
