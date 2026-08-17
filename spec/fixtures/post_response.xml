@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://purl.org/rss/1.0/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:cl="http://www.craigslist.org/about/cl-bulk-ns/1.0">
+  <channel>
+    <description>upload-id:FD95E9A8-E192-11E6-A34F-C577977E6A6B</description>
+    <items>
+      <rdf:Seq>
+        <rdf:li rdf:resource="NYCBrokerHousingSample1"/>
+        <rdf:li rdf:resource="NYCBrokerHousingSample2"/>
+      </rdf:Seq>
+    </items>
+  </channel>
+  <item rdf:about="NYCBrokerHousingSample1">
+    <cl:postedStatus>POSTED</cl:postedStatus>
+    <cl:postedExplanation>Successfully enqueued posting.</cl:postedExplanation>
+    <cl:postingID>159144091</cl:postingID>
+    <cl:postingManageURL>https://post.craigslist.org/manage/159144091/to6s1
+    </cl:postingManageURL>
+    <cl:postingViewURL>https://newyork.craigslist.org/mnh/prk/d/parking-spot-for-rent-at-east/159144091.html
+    </cl:postingViewURL>
+    <cl:previewHTML><![CDATA[
+    <p>HTML preview of posting will appear here.</p>
+    ]]></cl:previewHTML>
+  </item>
+  <item rdf:about="NYCBrokerHousingSample2">
+    <cl:postedStatus>INSUFFICIENT_BLOCKS</cl:postedStatus>
+    <cl:postedExplanation>Not enough blocks remaining for nyc/apa.</cl:postedExplanation>
+  </item>
+</rdf:RDF>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://purl.org/rss/1.0/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:cl="http://www.craigslist.org/about/cl-bulk-ns/1.0">
+  <channel>
+    <items>
+      <rdf:Seq>
+        <rdf:li rdf:resource="NYCBrokerHousingSample1"/>
+        <rdf:li rdf:resource="NYCBrokerHousingSample2"/>
+      </rdf:Seq>
+    </items>
+  </channel>
+  <item rdf:about="NYCBrokerHousingSample1">
+    <cl:postedStatus>VALID</cl:postedStatus>
+    <cl:postedExplanation>This posting seems to be valid.</cl:postedExplanation>
+    <cl:previewHTML><![CDATA[
+    <p>HTML preview of posting will appear here.</p>
+    ]]></cl:previewHTML>
+  </item>
+  <item rdf:about="NYCBrokerHousingSample2">
+    <cl:postedStatus>NOT_VALID</cl:postedStatus>
+    <cl:postedExplanation>Missing required field: area.</cl:postedExplanation>
+    <cl:warning>unexpected element cl:bogus ignored</cl:warning>
+  </item>
+</rdf:RDF>

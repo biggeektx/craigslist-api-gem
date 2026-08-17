@@ -1,0 +1,31 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      # Required for Trusted Publishing. Without it the publish action cannot
+      # identify itself to RubyGems.org and the push fails.
+      id-token: write
+
+    environment: release
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.4"
+          bundler-cache: true
+
+      - name: Run tests before publishing
+        run: bundle exec rake
+
+      - name: Publish to RubyGems
+        uses: rubygems/release-gem@v1

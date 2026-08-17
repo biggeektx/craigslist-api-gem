@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "craigslist/api"
+require "irb"
+
+# Builds a client from the environment, if credentials are present. Nothing is
+# sent until you call something on it.
+#
+#   CRAIGSLIST_EMAIL=... CRAIGSLIST_PASSWORD=... CRAIGSLIST_ACCOUNT_ID=... bin/console
+def client
+  @client ||= Craigslist::API.new(
+    email: ENV.fetch("CRAIGSLIST_EMAIL"),
+    password: ENV.fetch("CRAIGSLIST_PASSWORD"),
+    account_id: ENV.fetch("CRAIGSLIST_ACCOUNT_ID")
+  )
+end
+
+if ENV["CRAIGSLIST_EMAIL"]
+  puts "craigslist-api #{Craigslist::API::VERSION} — `client` is configured from ENV"
+else
+  puts "craigslist-api #{Craigslist::API::VERSION}"
+  puts "Set CRAIGSLIST_EMAIL, CRAIGSLIST_PASSWORD and CRAIGSLIST_ACCOUNT_ID to use `client`."
+end
+
+IRB.start(__FILE__)
