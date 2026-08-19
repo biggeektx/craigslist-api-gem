@@ -1,5 +1,6 @@
 # craigslist-api
 
+[![Gem Version](https://img.shields.io/gem/v/craigslist-api.svg)](https://rubygems.org/gems/craigslist-api)
 [![CI](https://github.com/biggeektx/craigslist-api-gem/actions/workflows/ci.yml/badge.svg)](https://github.com/biggeektx/craigslist-api-gem/actions/workflows/ci.yml)
 
 A Ruby client for Craigslist's bulk posting platform.

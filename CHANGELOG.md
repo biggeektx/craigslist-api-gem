@@ -11,7 +11,7 @@ by Craigslist, so real-world use may surface corrections.
 
 ## [Unreleased]
 
-## [0.1.0] - 2026-08-17
+## [0.1.0] - 2026-08-19
 
 Initial release.
 
@@ -42,12 +42,25 @@ Initial release.
 - `ResultSet#raw`, the unparsed response body, so an unexplained rejection can
   be inspected without rebuilding the request by hand.
 
-### Notes
+### Verification
 
-Verified against a live bulk posting account: postings created and removed in
-`pit`/`ctd`, plus management, billing, image and error paths. Two corrections
-came out of that run, both folded in above -- the zip lookup shape, and the
-missing subarea in the smoke-test example.
+Exercised end to end against a live bulk posting account: five postings created
+and removed in `pit`/`ctd`, plus validation, status, body, price, image upload
+and reordering, delete/undelete, billing, and error mapping. Two corrections
+came out of that run and are folded in above -- the zip lookup payload shape,
+and the missing subarea in the documented example.
+
+The offline suite is 207 examples with no network access; response parsing is
+checked against fixtures transcribed from craigslist's published samples.
+
+### Known limitations
+
+- Requires a craigslist account granted bulk posting access, which is arranged
+  case by case and limited to paid US categories.
+- Postings are created through the RSS interface and managed through the JSON
+  API; neither can do the other's job, which is why one client fronts both.
+- `Serializer` builds the request as a DOM. Batches carrying many base64 images
+  are held in memory whole; submit in modest batches until that is revisited.
 
 [Unreleased]: https://github.com/biggeektx/craigslist-api-gem/compare/v0.1.0...HEAD
 [0.1.0]: https://github.com/biggeektx/craigslist-api-gem/releases/tag/v0.1.0
