@@ -81,13 +81,13 @@ module Craigslist
           true
         end
 
-        # Maps a US ZIP code onto the craigslist area that covers it.
+        # Maps a US ZIP code onto the craigslist area that covers it, and the
+        # subarea within it when there is one.
         #
         # @param zip [String]
-        # @return [Hash{Symbol => String}] +{abbreviation:, description:}+
+        # @return [ZipLocation]
         def area_for_zip(zip)
-          data = transport.get(path("posting", "zip", zip, "area")).data || {}
-          {abbreviation: data["abbreviation"], description: data["description"]}
+          ZipLocation.from(transport.get(path("posting", "zip", zip, "area")).data)
         end
       end
     end

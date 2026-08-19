@@ -28,6 +28,7 @@ require "craigslist/api/credit_summary"
 require "craigslist/api/posting_stats"
 require "craigslist/api/area"
 require "craigslist/api/category"
+require "craigslist/api/zip_location"
 require "craigslist/api/reference"
 
 require "craigslist/api/resources/base"

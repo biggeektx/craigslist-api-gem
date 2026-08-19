@@ -22,7 +22,7 @@ module Craigslist
           root = document.root
           raise ParseError, "response contained no root element" if root.nil?
 
-          new(root).result_set
+          new(root, xml.to_s).result_set
         end
 
         private
@@ -34,18 +34,19 @@ module Craigslist
         end
       end
 
-      def initialize(root)
+      def initialize(root, raw = nil)
         @root = root
+        @raw = raw
       end
 
       # @return [ResultSet]
       def result_set
-        ResultSet.new(results: results, upload_id: upload_id)
+        ResultSet.new(results: results, upload_id: upload_id, raw: raw)
       end
 
       private
 
-      attr_reader :root
+      attr_reader :root, :raw
 
       def results
         root.get_elements("item").map { |item| build_result(item) }

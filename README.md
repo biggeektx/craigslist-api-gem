@@ -95,6 +95,12 @@ end
 
 Transport and authentication failures *do* raise. See [Errors](#errors).
 
+When a rejection is opaque, the unparsed response is always on hand:
+
+```ruby
+puts results.raw    # the RSS document exactly as craigslist sent it
+```
+
 Each `Result` answers the status it came back with:
 
 | Predicate | Status | Meaning |
@@ -125,6 +131,17 @@ end
 Only `key`, `title`, `description`, `category`, `area` and a location are
 required. A location means either `:postal`, or both `:latitude` and
 `:longitude`.
+
+> **Subarea is required in any area that has subareas**, and omitting it is the
+> most common reason a posting comes back `NOT_VALID`. `sfo` has six; `pit` has
+> none. Let the ZIP lookup tell you rather than guessing:
+>
+> ```ruby
+> place = client.area_for_zip("94110")   #=> area "sfo", subarea "sfc"
+> Craigslist::API::Posting.new(**place.to_h, key: ..., title: ...)
+> ```
+>
+> Or check directly with `client.reference.area("sfo").subareas?`.
 
 ```ruby
 Craigslist::API::Posting.new(
@@ -248,7 +265,10 @@ end
 client.pricing(area: "sfo", category: "ofc").to_s   #=> "1000.00 USD"
 client.billing.create_invoice                       #=> ["1234321"]
 
-client.area_for_zip("02134")       #=> {abbreviation: "bos", description: "boston"}
+place = client.area_for_zip("02134")
+place.area        #=> "bos"
+place.subarea     #=> "gbs"
+place.to_h        #=> {area: "bos", subarea: "gbs"}
 ```
 
 Money keeps Craigslist's minor-unit representation and converts through

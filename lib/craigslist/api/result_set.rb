@@ -17,9 +17,19 @@ module Craigslist
       #   taken from the channel description. Present in post mode.
       attr_reader :upload_id
 
-      def initialize(results:, upload_id: nil)
+      # The unparsed response body.
+      #
+      # Kept because a NOT_VALID with no explanation is otherwise a dead end,
+      # and reaching the raw XML should not require rebuilding the request by
+      # hand.
+      #
+      # @return [String, nil]
+      attr_reader :raw
+
+      def initialize(results:, upload_id: nil, raw: nil)
         @results = Array(results).freeze
         @upload_id = upload_id
+        @raw = raw
         @index = @results.each_with_object({}) { |r, memo| memo[r.key] = r }.freeze
         freeze
       end

@@ -81,12 +81,28 @@ RSpec.describe Craigslist::API::Resources::Postings do
     expect(stub).to have_been_requested
   end
 
-  it "maps a ZIP code to an area" do
-    stub_request(:get, "#{bapi}/posting/zip/02134/area")
-      .to_return(json_response("abbreviation" => "bos", "description" => "boston"))
+  it "maps a ZIP code to an area and its subarea" do
+    stub_request(:get, "#{bapi}/posting/zip/02134/area").to_return(json_response(
+      "area" => {"abbreviation" => "bos", "description" => "boston"},
+      "subarea" => {"abbreviation" => "gbs", "description" => "boston/cambridge/brookline"}
+    ))
 
-    expect(postings.area_for_zip("02134"))
-      .to eq({abbreviation: "bos", description: "boston"})
+    place = postings.area_for_zip("02134")
+
+    expect(place.area).to eq("bos")
+    expect(place.subarea).to eq("gbs")
+    expect(place.to_h).to eq({area: "bos", subarea: "gbs"})
+  end
+
+  it "reports no subarea for an area that has none" do
+    stub_request(:get, "#{bapi}/posting/zip/15314/area").to_return(json_response(
+      "area" => {"abbreviation" => "pit", "description" => "pittsburgh, PA"}
+    ))
+
+    place = postings.area_for_zip("15314")
+
+    expect(place).not_to be_subarea
+    expect(place.to_h).to eq({area: "pit"})
   end
 
   it "raises NotFoundError for an unknown posting" do

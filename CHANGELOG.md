@@ -36,6 +36,18 @@ Initial release.
   `ImageInfo`, `Area`, and `Category`.
 - An error hierarchy rooted at `Craigslist::API::Error`, including `APIError`
   for the case where an HTTP 200 carries a populated `errors` array.
+- `ZipLocation`, returned by `#area_for_zip`. Carries the subarea, which a
+  flat return value would discard -- and a missing subarea is the most common
+  cause of a `NOT_VALID` posting. `#to_h` splats straight into `Posting.new`.
+- `ResultSet#raw`, the unparsed response body, so an unexplained rejection can
+  be inspected without rebuilding the request by hand.
+
+### Notes
+
+Verified against a live bulk posting account: postings created and removed in
+`pit`/`ctd`, plus management, billing, image and error paths. Two corrections
+came out of that run, both folded in above -- the zip lookup shape, and the
+missing subarea in the smoke-test example.
 
 [Unreleased]: https://github.com/biggeektx/craigslist-api-gem/compare/v0.1.0...HEAD
 [0.1.0]: https://github.com/biggeektx/craigslist-api-gem/releases/tag/v0.1.0
